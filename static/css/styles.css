@@ -1,63 +1,127 @@
-/* 
- * Food Safety Advisor - Custom Styles
- * Complementing Bootstrap Dark Theme
- */
+/* Food Safety Advisor Styles */
 
-/* General Styling */
+/* Global Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+}
+
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background-color: var(--dark-color);
+    color: var(--light-color);
 }
 
-main {
-    flex: 1 0 auto;
+/* Landing Page Styles */
+.landing-page .hero-section {
+    padding: 3rem 0;
 }
 
-.footer {
-    flex-shrink: 0;
+.landing-page .display-3 span {
+    color: var(--primary-color);
 }
 
-/* Custom Card Styling */
+.landing-page .hero-image-container {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.landing-page .hero-image-container:hover {
+    transform: translateY(-5px);
+}
+
+.landing-page .features-section, 
+.landing-page .how-it-works-section,
+.landing-page .benefits-section {
+    padding: 4rem 0;
+}
+
+.landing-page .feature-icon, 
+.landing-page .benefit-icon {
+    margin: 0 auto;
+}
+
+.landing-page .benefit-icon {
+    transition: transform 0.3s ease;
+}
+
+.landing-page .benefit:hover .benefit-icon {
+    transform: scale(1.1);
+}
+
+.landing-page .cta-section {
+    padding: 2rem 0;
+}
+
+.landing-page .cta-container {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.landing-page .cta-container:hover {
+    transform: translateY(-5px);
+}
+
+/* Steps on landing page */
+.landing-page .step {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.landing-page .step:hover {
+    transform: translateX(5px);
+}
+
+.landing-page .steps .step:not(:last-child):after {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: 18px;
+    height: 100%;
+    width: 1px;
+    background-color: var(--primary-color);
+    opacity: 0.5;
+}
+
+/* Form Styles */
+.form-control, .form-select, .input-group-text {
+    background-color: #2a2e32;
+    border-color: #444;
+    color: #fff;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #2a2e32;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    color: #fff;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Card Styles */
 .card {
-    border-radius: 0.75rem;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-.card-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.card-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Image Carousel */
 .image-carousel {
     position: relative;
-    border-radius: 0.75rem;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.carousel-images img {
-    width: 100%;
-    height: auto;
-    transition: transform 10s ease;
-}
-
-.carousel-images:hover img {
-    transform: scale(1.05);
+.carousel-images {
+    position: relative;
 }
 
 .carousel-overlay {
@@ -65,90 +129,81 @@ main {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 1rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    color: #fff;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
 }
 
-/* Form Styling */
-.form-control, .input-group-text {
-    border-radius: 0.5rem;
+/* Progress bar animations */
+.progress-bar {
+    transition: width 1.5s ease-in-out;
 }
 
-.btn {
-    border-radius: 0.5rem;
-    padding: 0.5rem 1.25rem;
+/* Results page styling */
+.recommendation-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-/* Badge styling */
-.badge {
-    font-size: 0.9rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
+.recommendation-safe {
+    color: #198754;
 }
 
-/* Print styles */
-@media print {
-    .navbar, .footer, .btn, form {
-        display: none !important;
-    }
-    
-    body {
-        background-color: white !important;
-        color: black !important;
-    }
-    
-    .card {
-        border: 1px solid #ddd !important;
-        box-shadow: none !important;
-    }
-    
-    .card-body, .list-group-item {
-        background-color: white !important;
-        color: black !important;
-    }
-    
-    .alert-success {
-        background-color: #d4edda !important;
-        color: #155724 !important;
-        border: 1px solid #c3e6cb !important;
-    }
-    
-    .alert-danger {
-        background-color: #f8d7da !important;
-        color: #721c24 !important;
-        border: 1px solid #f5c6cb !important;
-    }
-    
-    .badge.bg-success {
-        background-color: #28a745 !important;
-        color: white !important;
-    }
-    
-    .badge.bg-danger {
-        background-color: #dc3545 !important;
-        color: white !important;
-    }
+.recommendation-unsafe {
+    color: #dc3545;
 }
 
-/* Animation for loader */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+.recommendation-warning {
+    color: #ffc107;
 }
 
-.pulsate {
-    animation: pulse 1.5s infinite;
-}
-
-/* Mobile responsiveness */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
+    .landing-page .hero-section {
+        text-align: center;
     }
     
-    .image-carousel {
+    .landing-page .hero-image-container {
         margin-top: 2rem;
     }
+    
+    .landing-page .step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .landing-page .step-number {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .landing-page .steps .step:not(:last-child):after {
+        display: none;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-up {
+    animation: slideInUp 0.5s ease-in-out;
 }

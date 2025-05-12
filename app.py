@@ -29,6 +29,10 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
+def landing():
+    return render_template('landing.html')
+
+@app.route('/app')
 def index():
     return render_template('index.html')
 
@@ -51,12 +55,12 @@ def analyze():
             flash('No file selected', 'danger')
             return redirect(url_for('index'))
         
-        if not allowed_file(file.filename):
+        if not file.filename or not allowed_file(file.filename):
             flash('Invalid file type. Please upload PDF or image files.', 'danger')
             return redirect(url_for('index'))
         
         # Save the file
-        filename = secure_filename(file.filename)
+        filename = secure_filename(str(file.filename))
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         

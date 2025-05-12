@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="landing-page">
+    <!-- Hero Section -->
+    <section class="hero-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold mb-4">Food Safety <span class="text-primary">Advisor</span></h1>
+                <p class="lead mb-4">Make informed dietary decisions based on your medical prescriptions and health conditions.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="/app" class="btn btn-primary btn-lg px-4 me-md-2">
+                        <i class="fas fa-utensils me-2"></i> Get Started
+                    </a>
+                    <a href="#how-it-works" class="btn btn-outline-secondary btn-lg px-4">
+                        <i class="fas fa-info-circle me-2"></i> Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352" alt="Healthy Food Options" class="img-fluid rounded-3 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section py-5" id="features">
+        <h2 class="text-center mb-5">Why Choose Food Safety Advisor?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 bg-dark border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-primary text-white rounded-circle mb-4">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <h3 class="card-title h5">Medication Interactions</h3>
+                        <p class="card-text">Identify food items that might interact with your medications and cause adverse effects.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 bg-dark border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-primary text-white rounded-circle mb-4">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3 class="card-title h5">Health Condition Alerts</h3>
+                        <p class="card-text">Get personalized warnings based on your medical conditions like diabetes, hypertension, or allergies.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 bg-dark border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon bg-primary text-white rounded-circle mb-4">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="card-title h5">Nutritional Information</h3>
+                        <p class="card-text">View comprehensive nutritional data for your food choices, including calories, macros, and more.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section py-5" id="how-it-works">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1576671081837-49000212a370" alt="Prescription and Food Analysis" class="img-fluid rounded-3 shadow-lg">
+            </div>
+            <div class="col-md-6">
+                <div class="steps">
+                    <div class="step mb-4">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="h5">Upload Your Prescription</h3>
+                            <p>Upload an image or PDF of your prescription securely. We'll analyze it to identify medications and health conditions.</p>
+                        </div>
+                    </div>
+                    <div class="step mb-4">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="h5">Enter Food Items</h3>
+                            <p>Input the name of any food you're considering eating to check if it's safe for you.</p>
+                        </div>
+                    </div>
+                    <div class="step mb-4">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="h5">Get Personalized Recommendations</h3>
+                            <p>Receive detailed safety information, nutritional data, and health recommendations tailored to your needs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center text-md-start mt-4">
+                    <a href="/app" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-right me-2"></i> Try It Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="benefits-section py-5 bg-dark rounded-3 shadow-sm p-4 mt-5">
+        <h2 class="text-center mb-5">Benefits of Using Food Safety Advisor</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="benefit text-center">
+                    <div class="benefit-icon text-primary mb-3">
+                        <i class="fas fa-shield-alt fa-3x"></i>
+                    </div>
+                    <h3 class="h5">Prevent Adverse Reactions</h3>
+                    <p>Avoid foods that could negatively interact with your medications or worsen health conditions.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="benefit text-center">
+                    <div class="benefit-icon text-primary mb-3">
+                        <i class="fas fa-brain fa-3x"></i>
+                    </div>
+                    <h3 class="h5">Make Informed Choices</h3>
+                    <p>Access data-backed information to make better decisions about your diet.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="benefit text-center">
+                    <div class="benefit-icon text-primary mb-3">
+                        <i class="fas fa-chart-line fa-3x"></i>
+                    </div>
+                    <h3 class="h5">Improve Health Outcomes</h3>
+                    <p>Support your medical treatment with compatible food choices.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="benefit text-center">
+                    <div class="benefit-icon text-primary mb-3">
+                        <i class="fas fa-clock fa-3x"></i>
+                    </div>
+                    <h3 class="h5">Save Time</h3>
+                    <p>Quickly check food safety without extensive research or multiple doctor consultations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section text-center py-5 mt-5">
+        <div class="cta-container p-5 rounded-3 shadow-lg">
+            <h2 class="mb-4">Ready to Make Safer Food Choices?</h2>
+            <p class="lead mb-4">Start using Food Safety Advisor today to ensure your meals are compatible with your health needs.</p>
+            <a href="/app" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-rocket me-2"></i> Get Started Now
+            </a>
+        </div>
+    </section>
+</div>
+
+<style>
+    .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .step {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .step-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        margin-right: 15px;
+        background-color: var(--bs-primary);
+        color: white;
+        border-radius: 50%;
+        font-weight: bold;
+    }
+
+    .cta-container {
+        background-color: rgba(33, 37, 41, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-image-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .hero-image-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(13, 110, 253, 0.2), rgba(0, 0, 0, 0.1));
+    }
+</style>
+{% endblock %}
