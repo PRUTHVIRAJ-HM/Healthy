@@ -92,7 +92,8 @@ def analyze():
                               explanation=result['explanation'],
                               benefits=result['benefits'],
                               health_risks=result['health_risks'],
-                              restrictions=restrictions)
+                              restrictions=restrictions,
+                              result=result)
     
     except Exception as e:
         logger.error(f"Error in analysis: {str(e)}")
