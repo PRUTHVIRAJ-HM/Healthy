@@ -83,10 +83,13 @@ def get_usda_food_data(food_name):
         
         # This is a simplified version as the actual extraction would be complex
         # In a real app, we'd need to parse the JavaScript data or use their API directly
+        # Generate nutritional information for the food
+        nutrients = generate_nutritional_info(food_name)
+        
         food_info = {
             "name": food_name,
             "ingredients": [],
-            "nutrients": {},
+            "nutrients": nutrients,
             "description": f"Information about {food_name} from USDA Food Data Central",
             "benefits": extract_food_benefits(food_name),
             "health_risks": extract_food_risks(food_name),
@@ -114,10 +117,13 @@ def get_wikipedia_food_info(food_name):
             return None
             
         # Create a basic structure for the food information
+        # Generate nutritional information for the food
+        nutrients = generate_nutritional_info(food_name)
+        
         food_info = {
             "name": food_name,
             "ingredients": extract_ingredients_from_text(text_content),
-            "nutrients": {},
+            "nutrients": nutrients,
             "description": extract_description(text_content),
             "benefits": extract_food_benefits(food_name, text_content),
             "health_risks": extract_food_risks(food_name, text_content),
@@ -135,10 +141,13 @@ def get_general_food_info(food_name):
     Used as a fallback when other methods fail
     """
     # Create a generic food information object
+    # Generate nutritional information for the food
+    nutrients = generate_nutritional_info(food_name)
+    
     food_info = {
         "name": food_name,
         "ingredients": [],
-        "nutrients": {},
+        "nutrients": nutrients,
         "description": f"Basic information for {food_name}. This food product may contain various ingredients.",
         "benefits": extract_food_benefits(food_name),
         "health_risks": extract_food_risks(food_name),
@@ -314,6 +323,93 @@ def extract_food_benefits(food_name, text_content=None):
     # Return unique benefits (up to 5)
     unique_benefits = list(set(benefits))
     return unique_benefits[:5]
+
+def generate_nutritional_info(food_name):
+    """
+    Generate nutritional information for a food item
+    
+    Args:
+        food_name (str): Name of the food
+        
+    Returns:
+        dict: Dictionary containing nutritional information
+    """
+    # Initialize an empty dictionary for nutritional information
+    nutrients = {}
+    
+    # Common food categories with approximate nutritional values per serving
+    nutrition_data = {
+        # Fruits
+        "apple": {"calories": 95, "protein": 0.5, "carbs": 25, "fat": 0.3, "fiber": 4, "sugar": 19, "serving_size": "1 medium (182g)"},
+        "banana": {"calories": 105, "protein": 1.3, "carbs": 27, "fat": 0.4, "fiber": 3.1, "sugar": 14, "serving_size": "1 medium (118g)"},
+        "orange": {"calories": 62, "protein": 1.2, "carbs": 15, "fat": 0.2, "fiber": 3.1, "sugar": 12, "serving_size": "1 medium (131g)"},
+        "strawberry": {"calories": 32, "protein": 0.7, "carbs": 7.7, "fat": 0.3, "fiber": 2, "sugar": 4.9, "serving_size": "1 cup (144g)"},
+        "grape": {"calories": 104, "protein": 1.1, "carbs": 27, "fat": 0.2, "fiber": 1.4, "sugar": 23, "serving_size": "1 cup (151g)"},
+        
+        # Vegetables
+        "broccoli": {"calories": 55, "protein": 3.7, "carbs": 11, "fat": 0.6, "fiber": 5.1, "sugar": 2.6, "serving_size": "1 cup (91g)"},
+        "spinach": {"calories": 7, "protein": 0.9, "carbs": 1.1, "fat": 0.1, "fiber": 0.7, "sugar": 0.1, "serving_size": "1 cup (30g)"},
+        "carrot": {"calories": 50, "protein": 1.2, "carbs": 12, "fat": 0.3, "fiber": 3.6, "sugar": 6, "serving_size": "1 medium (61g)"},
+        "lettuce": {"calories": 15, "protein": 1.5, "carbs": 2.9, "fat": 0.2, "fiber": 1.3, "sugar": 1.1, "serving_size": "1 cup (47g)"},
+        "potato": {"calories": 168, "protein": 4.5, "carbs": 37, "fat": 0.2, "fiber": 4, "sugar": 2, "serving_size": "1 medium (173g)"},
+        
+        # Proteins
+        "chicken": {"calories": 165, "protein": 31, "carbs": 0, "fat": 3.6, "fiber": 0, "sugar": 0, "serving_size": "3 oz (85g)"},
+        "beef": {"calories": 213, "protein": 22, "carbs": 0, "fat": 14, "fiber": 0, "sugar": 0, "serving_size": "3 oz (85g)"},
+        "salmon": {"calories": 177, "protein": 19, "carbs": 0, "fat": 11, "fiber": 0, "sugar": 0, "serving_size": "3 oz (85g)"},
+        "egg": {"calories": 72, "protein": 6.3, "carbs": 0.4, "fat": 5, "fiber": 0, "sugar": 0.2, "serving_size": "1 large (50g)"},
+        "tofu": {"calories": 94, "protein": 10, "carbs": 2.3, "fat": 5.9, "fiber": 1.5, "sugar": 0.7, "serving_size": "100g"},
+        
+        # Dairy
+        "milk": {"calories": 149, "protein": 8, "carbs": 12, "fat": 8, "fiber": 0, "sugar": 12, "serving_size": "1 cup (244g)"},
+        "cheese": {"calories": 113, "protein": 7, "carbs": 0.9, "fat": 9, "fiber": 0, "sugar": 0.1, "serving_size": "1 oz (28g)"},
+        "yogurt": {"calories": 154, "protein": 13, "carbs": 17, "fat": 3.8, "fiber": 0, "sugar": 17, "serving_size": "1 cup (245g)"},
+        
+        # Grains
+        "rice": {"calories": 206, "protein": 4.3, "carbs": 45, "fat": 0.4, "fiber": 0.6, "sugar": 0.1, "serving_size": "1 cup cooked (158g)"},
+        "bread": {"calories": 77, "protein": 3, "carbs": 13, "fat": 1, "fiber": 1.1, "sugar": 1.5, "serving_size": "1 slice (28g)"},
+        "pasta": {"calories": 221, "protein": 8.1, "carbs": 43, "fat": 1.3, "fiber": 2.5, "sugar": 0.8, "serving_size": "1 cup cooked (140g)"},
+        "oats": {"calories": 147, "protein": 6.1, "carbs": 25, "fat": 2.5, "fiber": 4, "sugar": 1, "serving_size": "1/2 cup dry (40g)"},
+        
+        # Nuts & Seeds
+        "almond": {"calories": 164, "protein": 6, "carbs": 6.1, "fat": 14, "fiber": 3.5, "sugar": 1.2, "serving_size": "1 oz (28g)"},
+        "walnut": {"calories": 185, "protein": 4.3, "carbs": 3.9, "fat": 18, "fiber": 1.9, "sugar": 0.7, "serving_size": "1 oz (28g)"},
+        "chia seed": {"calories": 138, "protein": 4.7, "carbs": 12, "fat": 8.7, "fiber": 9.8, "sugar": 0, "serving_size": "1 oz (28g)"},
+        
+        # Processed Foods
+        "pizza": {"calories": 285, "protein": 12, "carbs": 36, "fat": 10, "fiber": 2.5, "sugar": 3.8, "serving_size": "1 slice (107g)"},
+        "hamburger": {"calories": 354, "protein": 20, "carbs": 40, "fat": 17, "fiber": 3, "sugar": 8, "serving_size": "1 burger (110g)"},
+        "french fries": {"calories": 365, "protein": 4, "carbs": 48, "fat": 17, "fiber": 4, "sugar": 0.5, "serving_size": "medium serving (117g)"},
+        "ice cream": {"calories": 273, "protein": 4.6, "carbs": 32, "fat": 14, "fiber": 0.7, "sugar": 28, "serving_size": "1 cup (132g)"},
+        "chocolate": {"calories": 155, "protein": 2, "carbs": 16, "fat": 9, "fiber": 1.8, "sugar": 14, "serving_size": "1 oz (28g)"}
+    }
+    
+    # Try to find exact match first
+    food_lower = food_name.lower()
+    if food_lower in nutrition_data:
+        return nutrition_data[food_lower]
+    
+    # Try to find partial matches if no exact match
+    for food_key, food_values in nutrition_data.items():
+        if food_key in food_lower or food_lower in food_key:
+            return food_values
+    
+    # If no match, provide generic nutritional information based on food type
+    if any(fruit in food_lower for fruit in ["apple", "banana", "orange", "berry", "fruit"]):
+        return {"calories": 85, "protein": 1, "carbs": 22, "fat": 0.3, "fiber": 3, "sugar": 15, "serving_size": "1 serving"}
+    elif any(veg in food_lower for veg in ["salad", "spinach", "kale", "broccoli", "vegetable", "carrot"]):
+        return {"calories": 35, "protein": 2, "carbs": 7, "fat": 0.3, "fiber": 3, "sugar": 2, "serving_size": "1 cup"}
+    elif any(meat in food_lower for meat in ["beef", "pork", "chicken", "lamb", "meat", "steak"]):
+        return {"calories": 185, "protein": 25, "carbs": 0, "fat": 10, "fiber": 0, "sugar": 0, "serving_size": "3 oz (85g)"}
+    elif any(grain in food_lower for grain in ["rice", "wheat", "oat", "barley", "grain", "bread", "pasta"]):
+        return {"calories": 180, "protein": 5, "carbs": 37, "fat": 1, "fiber": 2, "sugar": 0.5, "serving_size": "1 serving"}
+    elif any(dairy in food_lower for dairy in ["milk", "cheese", "yogurt", "dairy"]):
+        return {"calories": 120, "protein": 8, "carbs": 10, "fat": 6, "fiber": 0, "sugar": 8, "serving_size": "1 serving"}
+    elif any(junk in food_lower for junk in ["pizza", "burger", "fries", "fast food"]):
+        return {"calories": 350, "protein": 12, "carbs": 40, "fat": 15, "fiber": 2, "sugar": 5, "serving_size": "1 serving"}
+    else:
+        # Default generic food nutritional information
+        return {"calories": 150, "protein": 5, "carbs": 15, "fat": 5, "fiber": 2, "sugar": 5, "serving_size": "1 serving"}
 
 def extract_food_risks(food_name, text_content=None):
     """
