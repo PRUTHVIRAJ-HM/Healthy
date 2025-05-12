@@ -90,6 +90,8 @@ def analyze():
                               is_safe=result['is_safe'],
                               recommendation=result['recommendation'],
                               explanation=result['explanation'],
+                              benefits=result['benefits'],
+                              health_risks=result['health_risks'],
                               restrictions=restrictions)
     
     except Exception as e:

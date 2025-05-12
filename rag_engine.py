@@ -213,11 +213,17 @@ def check_food_safety(food_name, food_info, restrictions):
         unique_explanations = list(set(explanation))
         unique_ingredients = list(set(unsafe_ingredients))
         
+        # Get food benefits and health risks based on safety status
+        benefits = food_info.get("benefits", [])
+        health_risks = food_info.get("health_risks", [])
+        
         return {
             "is_safe": is_safe,
             "unsafe_ingredients": unique_ingredients,
             "recommendation": recommendation,
             "explanation": unique_explanations,
+            "benefits": benefits,
+            "health_risks": health_risks,
             "food_info": food_info
         }
     
@@ -228,5 +234,7 @@ def check_food_safety(food_name, food_info, restrictions):
             "unsafe_ingredients": [],
             "recommendation": "Could not determine if this food is safe. Please consult with your doctor or pharmacist.",
             "explanation": ["An error occurred during analysis. Please try again or consult a healthcare professional."],
+            "benefits": food_info.get("benefits", []),
+            "health_risks": food_info.get("health_risks", []),
             "food_info": food_info
         }

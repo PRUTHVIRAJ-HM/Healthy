@@ -19,6 +19,8 @@ def get_website_text_content(url: str) -> str:
         downloaded = trafilatura.fetch_url(url)
         if downloaded:
             text = trafilatura.extract(downloaded)
+            if text is None:
+                return ""
             return text
         return ""
     except Exception as e:
