@@ -216,6 +216,7 @@ def check_food_safety(food_name, food_info, restrictions):
         # Get food benefits and health risks based on safety status
         benefits = food_info.get("benefits", [])
         health_risks = food_info.get("health_risks", [])
+        nutrients = food_info.get("nutrients", {})
         
         return {
             "is_safe": is_safe,
@@ -224,6 +225,7 @@ def check_food_safety(food_name, food_info, restrictions):
             "explanation": unique_explanations,
             "benefits": benefits,
             "health_risks": health_risks,
+            "nutrients": nutrients,
             "food_info": food_info
         }
     
@@ -236,5 +238,6 @@ def check_food_safety(food_name, food_info, restrictions):
             "explanation": ["An error occurred during analysis. Please try again or consult a healthcare professional."],
             "benefits": food_info.get("benefits", []),
             "health_risks": food_info.get("health_risks", []),
+            "nutrients": food_info.get("nutrients", {}),
             "food_info": food_info
         }

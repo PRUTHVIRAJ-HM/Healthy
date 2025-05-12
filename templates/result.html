@@ -128,17 +128,17 @@
                             <h5 class="mb-0"><i class="fas fa-chart-pie text-info me-2"></i> Nutritional Information</h5>
                         </div>
                         <div class="card-body">
-                            {% if result.nutrients %}
+                            {% if nutrients %}
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <p class="mb-1"><strong>Serving Size:</strong></p>
-                                    <p>{{ result.nutrients.serving_size }}</p>
+                                    <p>{{ nutrients.serving_size }}</p>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="progress mb-3" style="height: 25px;">
                                         <div class="progress-bar bg-primary" role="progressbar"
-                                            style="width: 100%;" aria-valuenow="{{ result.nutrients.calories }}"
-                                            aria-valuemin="0" aria-valuemax="100">{{ result.nutrients.calories }} calories</div>
+                                            style="width: 100%;" aria-valuenow="{{ nutrients.calories }}"
+                                            aria-valuemin="0" aria-valuemax="100">{{ nutrients.calories }} calories</div>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
                                     <div class="card bg-dark h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Protein</h5>
-                                            <p class="display-6 mb-0">{{ result.nutrients.protein }}g</p>
+                                            <p class="display-6 mb-0">{{ nutrients.protein }}g</p>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                                     <div class="card bg-dark h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Carbs</h5>
-                                            <p class="display-6 mb-0">{{ result.nutrients.carbs }}g</p>
+                                            <p class="display-6 mb-0">{{ nutrients.carbs }}g</p>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@
                                     <div class="card bg-dark h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Fat</h5>
-                                            <p class="display-6 mb-0">{{ result.nutrients.fat }}g</p>
+                                            <p class="display-6 mb-0">{{ nutrients.fat }}g</p>
                                         </div>
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@
                                     <div class="card bg-dark h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Fiber</h5>
-                                            <p class="display-6 mb-0">{{ result.nutrients.fiber }}g</p>
+                                            <p class="display-6 mb-0">{{ nutrients.fiber }}g</p>
                                         </div>
                                     </div>
                                 </div>
@@ -181,8 +181,8 @@
                             <div class="mt-3">
                                 <div class="progress mb-2" style="height: 20px;">
                                     <div class="progress-bar bg-info" role="progressbar"
-                                        style="width: {{ (result.nutrients.sugar / 50) * 100 }}%;" aria-valuenow="{{ result.nutrients.sugar }}"
-                                        aria-valuemin="0" aria-valuemax="50">Sugar: {{ result.nutrients.sugar }}g</div>
+                                        style="width: {{ (nutrients.sugar / 50) * 100 }}%;" aria-valuenow="{{ nutrients.sugar }}"
+                                        aria-valuemin="0" aria-valuemax="50">Sugar: {{ nutrients.sugar }}g</div>
                                 </div>
                             </div>
                             {% else %}
