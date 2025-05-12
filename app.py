@@ -93,6 +93,7 @@ def analyze():
                               benefits=result['benefits'],
                               health_risks=result['health_risks'],
                               restrictions=restrictions,
+                              nutrients=result['nutrients'],
                               result=result)
     
     except Exception as e:
