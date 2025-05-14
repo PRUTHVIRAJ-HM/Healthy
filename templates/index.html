@@ -1,174 +1,176 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row align-items-center">
-    <div class="col-lg-6">
-        <h1 class="display-4 mb-4">Food Safety Advisor</h1>
-        <p class="lead mb-4">Check if a food is safe for you based on your prescription and dietary restrictions.</p>
-        
-        <div class="card bg-dark shadow-sm mb-4">
-            <div class="card-body">
-                <form action="/analyze" method="POST" enctype="multipart/form-data" id="food-safety-form">
-                    <div class="mb-3">
-                        <label for="food_product" class="form-label">What food would you like to eat?</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-utensils"></i></span>
-                            <input type="text" class="form-control" id="food_product" name="food_product" placeholder="Enter food name (e.g., 'salmon', 'peanut butter')" required>
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="mb-4">Check Your Food Safety</h1>
+            <p class="lead mb-4">Upload your prescription and enter a food item to check if it's safe for your health conditions.</p>
+            
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <form method="POST" action="/analyze" enctype="multipart/form-data" id="food-safety-form">
+                        <div class="mb-4">
+                            <label for="food_name" class="form-label">Food item to check</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-utensils"></i></span>
+                                <input type="text" class="form-control" id="food_name" name="food_name" placeholder="e.g., Grapefruit, Spinach, Coffee" required>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="prescription" class="form-label">Upload your prescription</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-file-medical"></i></span>
-                            <input type="file" class="form-control" id="prescription" name="prescription" accept=".pdf,.jpg,.jpeg,.png" required>
+                        
+                        <div class="mb-4">
+                            <label for="prescription" class="form-label">Upload your prescription</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-file-medical"></i></span>
+                                <input type="file" class="form-control" id="prescription" name="prescription" accept=".pdf,.jpg,.jpeg,.png" required>
+                            </div>
+                            <div class="form-text text-muted">We accept PDF and image files (JPG, PNG). Your prescription is analyzed privately and never stored.</div>
                         </div>
-                        <div class="form-text">We accept PDF and image files (JPG, PNG). Your prescription is analyzed privately and never stored.</div>
-                    </div>
-                    
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary btn-lg" id="analyze-btn">
-                            <i class="fas fa-microscope me-2"></i> Analyze Food Safety
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-lg-6">
-        <div class="image-carousel">
-            <div class="carousel-images">
-                <img src="https://pixabay.com/get/g444e8a2fb213dd667f221cf3d8e8dd7046ca184d2368ff030deb748193b0b7e5e8d98aa0c295d0bf886e7fe8aaaab04395331b53d2aeeeff922ceef6373f8ad5_1280.jpg" alt="Healthy vegetables" class="img-fluid rounded shadow-sm mb-3">
-                <div class="carousel-overlay">
-                    <h3>Eat Healthy, Stay Safe</h3>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" id="analyze-btn">
+                                <i class="fas fa-microscope me-2"></i> Analyze Food Safety
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="row my-5" id="about">
-    <div class="col-md-12">
-        <h2 class="text-center mb-4">How It Works</h2>
         
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100 bg-dark">
-                    <div class="card-body text-center">
-                        <i class="fas fa-clipboard-list fa-3x mb-3 text-primary"></i>
+        <div class="col-lg-6">
+            <div class="position-relative">
+                <div class="decorative-shape shape-1" style="background-color: var(--accent-color-3);"></div>
+                <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40" alt="Food and Health" class="img-fluid rounded-4 shadow">
+                <div class="decorative-shape shape-2" style="background-color: var(--accent-color-1);"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="mt-5 pt-5">
+        <h2 class="section-heading">How It Works</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-clipboard-list fa-2x text-primary"></i>
+                        </div>
                         <h5 class="card-title">Step 1: Upload</h5>
-                        <p class="card-text">Upload your prescription and enter the food you want to check.</p>
+                        <p class="card-text text-muted">Upload your prescription and enter the food you want to check.</p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card h-100 bg-dark">
-                    <div class="card-body text-center">
-                        <i class="fas fa-robot fa-3x mb-3 text-primary"></i>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-robot fa-2x text-primary"></i>
+                        </div>
                         <h5 class="card-title">Step 2: Analysis</h5>
-                        <p class="card-text">Our system analyzes your prescription for any dietary restrictions.</p>
+                        <p class="card-text text-muted">Our system analyzes your prescription for any dietary restrictions.</p>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card h-100 bg-dark">
-                    <div class="card-body text-center">
-                        <i class="fas fa-check-circle fa-3x mb-3 text-primary"></i>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                            <i class="fas fa-check-circle fa-2x text-primary"></i>
+                        </div>
                         <h5 class="card-title">Step 3: Results</h5>
-                        <p class="card-text">Get a clear recommendation on whether the food is safe for you.</p>
+                        <p class="card-text text-muted">Get a clear recommendation on whether the food is safe for you.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row mb-5">
-    <div class="col-md-6">
-        <div class="card bg-dark h-100">
-            <div class="card-body">
-                <h3 class="card-title"><i class="fas fa-shield-alt text-primary me-2"></i> Food Safety Matters</h3>
-                <p class="card-text">
-                    Food safety is critical, especially when you're on medication. Some foods can interact with your 
-                    medications, reducing their effectiveness or causing adverse reactions.
-                </p>
-                <p class="card-text">
-                    Our tool helps you make informed decisions about what foods are safe to eat based on your 
-                    prescription and health conditions.
-                </p>
+    <!-- Food Safety Info -->
+    <div class="row my-5 pt-3">
+        <div class="col-md-6">
+            <div class="card h-100 border-0">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-3">Food Safety Matters</h3>
+                    <p class="card-text text-muted">
+                        Food safety is critical, especially when you're on medication. Some foods can interact with your 
+                        medications, reducing their effectiveness or causing adverse reactions.
+                    </p>
+                    <p class="card-text text-muted">
+                        Our tool helps you make informed decisions about what foods are safe to eat based on your 
+                        prescription and health conditions.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 border-0">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-3">Powered by AI</h3>
+                    <p class="card-text text-muted">
+                        We use advanced AI techniques including:
+                    </p>
+                    <ul class="text-muted">
+                        <li>Text extraction from prescriptions</li>
+                        <li>RAG (Retrieval-Augmented Generation) for food safety knowledge</li>
+                        <li>Web scraping to get up-to-date food information</li>
+                        <li>Natural language processing to understand restrictions</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card bg-dark h-100">
-            <div class="card-body">
-                <h3 class="card-title"><i class="fas fa-brain text-primary me-2"></i> Powered by AI</h3>
-                <p class="card-text">
-                    We use advanced AI techniques including:
-                </p>
-                <ul>
-                    <li>Text extraction from prescriptions</li>
-                    <li>RAG (Retrieval-Augmented Generation) for food safety knowledge</li>
-                    <li>Web scraping to get up-to-date food information</li>
-                    <li>Natural language processing to understand restrictions</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="row mt-5 mb-3">
-    <div class="col-12 text-center">
-        <h2>Featured Foods</h2>
-    </div>
-</div>
-
-<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-    <div class="col">
-        <div class="card h-100 bg-dark">
-            <img src="https://pixabay.com/get/gaa81587e96361bafa2d0ce941858b0cb33c25d50c468d956fdef42bb7dfcbda28dd8ffa8929f4c9d0242424dcc7bf6ade90e9a4b43f36524912ca8243c9ec00c_1280.jpg" class="card-img-top" alt="Healthy salad">
-            <div class="card-body">
-                <h5 class="card-title">Fresh Salads</h5>
-                <p class="card-text">Rich in vitamins and minerals, but may interact with blood thinners like warfarin.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 bg-dark">
-            <img src="https://pixabay.com/get/g240232d2a748efc9f3dca7a4b183bd0487bbf4a81fbc272d5e2cf9b95436ae38f7f2e0a91cab78f953a7936f32dc514954bd213fdacea63cdf74b849e5d0722e_1280.jpg" class="card-img-top" alt="Fish">
-            <div class="card-body">
-                <h5 class="card-title">Seafood</h5>
-                <p class="card-text">Great source of omega-3, but may cause allergic reactions in some individuals.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 bg-dark">
-            <img src="https://pixabay.com/get/g1d42e670ffb1226070b5c3079dca1dae368b97773d205daf5a143906b54b884b879dd2d9e846e2e2a9a63703a0e4c27f7b5051d5b0c56225dadf718a4373abc8_1280.jpg" class="card-img-top" alt="Fruits">
-            <div class="card-body">
-                <h5 class="card-title">Citrus Fruits</h5>
-                <p class="card-text">High in vitamin C, but grapefruit can interact with many medications.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card bg-dark mb-5">
-            <div class="card-body">
-                <div class="row align-items-center">
-                    <div class="col-md-4 text-center">
-                        <img src="https://pixabay.com/get/g06a875eac051495ee42bfed6c9b324c46aeec6aeb2ff6ea050d50234de474a66c61a2f92e2a81fd712699834eec52063e94e3988bcd07f6fc0cff377f826cad2_1280.jpg" alt="Prescription" class="img-fluid rounded" style="max-height: 200px;">
+    <!-- Featured Foods -->
+    <div class="mt-5 pt-3">
+        <h2 class="section-heading">Featured Foods</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <img src="https://images.unsplash.com/photo-1577234286642-fc512a5f8f11" class="card-img-top rounded-4" alt="Citrus Fruits">
+                    <div class="card-body">
+                        <h5 class="card-title">Citrus Fruits</h5>
+                        <p class="card-text text-muted">High in vitamin C, but grapefruit can interact with many medications.</p>
                     </div>
-                    <div class="col-md-8">
-                        <h3 class="card-title">Disclaimer</h3>
-                        <p class="card-text">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <img src="https://images.unsplash.com/photo-1607532941433-304659e8198a" class="card-img-top rounded-4" alt="Fresh Salads">
+                    <div class="card-body">
+                        <h5 class="card-title">Fresh Salads</h5>
+                        <p class="card-text text-muted">Rich in vitamins and minerals, but may interact with blood thinners like warfarin.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2" class="card-img-top rounded-4" alt="Seafood">
+                    <div class="card-body">
+                        <h5 class="card-title">Seafood</h5>
+                        <p class="card-text text-muted">Great source of omega-3, but may cause allergic reactions in some individuals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="my-5">
+        <div class="card border-0 bg-light rounded-4">
+            <div class="card-body p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center">
+                        <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831" alt="Medical Disclaimer" class="img-fluid rounded-4" style="max-height: 180px;">
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="card-title mb-3">Disclaimer</h3>
+                        <p class="card-text text-muted">
                             This tool is designed as an informational resource only and should not replace professional medical advice. 
                             Always consult with your healthcare provider or pharmacist about potential food-drug interactions.
                         </p>
-                        <p class="card-text">
+                        <p class="card-text text-muted">
                             Results are based on general knowledge and may not account for all possible interactions or individual factors.
                         </p>
                     </div>

@@ -39,8 +39,8 @@ def index():
 @app.route('/analyze', methods=['POST'])
 def analyze():
     try:
-        # Get food product from form
-        food_product = request.form.get('food_product', '')
+        # Get food product from form - FIXED
+        food_product = request.form.get('food_name', '')  # Change food_product to food_name
         if not food_product:
             flash('Please enter a food product name', 'danger')
             return redirect(url_for('index'))

@@ -4,78 +4,117 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <div class="card bg-dark shadow-lg mb-4">
-                <div class="card-header">
-                    <h2 class="mb-0">Food Safety Analysis Result</h2>
+            <!-- Result Header -->
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h1>Food Safety Analysis</h1>
+                <div>
+                    <a href="/" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to Home
+                    </a>
+                    <button class="btn btn-outline-primary ms-2" onclick="window.print()">
+                        <i class="fas fa-print me-1"></i> Print Result
+                    </button>
                 </div>
-                <div class="card-body">
+            </div>
+
+            <!-- Main Result Card -->
+            <div class="card border-0 shadow-sm mb-5">
+                <div class="card-body p-4">
                     <div class="row mb-4">
-                        <div class="col-md-6">
-                            <h3>{{ food_product|title }}</h3>
-                            <p class="lead">
+                        <div class="col-md-8">
+                            <h2 class="mb-2">{{ food_product|title }}</h2>
+                            <p class="mb-4">
                                 {% if is_safe %}
-                                <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i> Safe to consume</span>
+                                <span class="safe-badge">
+                                    <i class="fas fa-check-circle me-1"></i> Safe to consume
+                                </span>
                                 {% else %}
-                                <span class="badge bg-danger"><i class="fas fa-exclamation-triangle me-1"></i> May not be safe</span>
+                                <span class="unsafe-badge">
+                                    <i class="fas fa-exclamation-triangle me-1"></i> May not be safe
+                                </span>
                                 {% endif %}
                             </p>
+                            <div class="p-4 rounded-4 mb-4 {% if is_safe %}bg-success bg-opacity-10{% else %}bg-danger bg-opacity-10{% endif %}">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        {% if is_safe %}
+                                        <i class="fas fa-check-circle fa-2x me-3 text-success"></i>
+                                        {% else %}
+                                        <i class="fas fa-exclamation-triangle fa-2x me-3 text-danger"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <h4>{{ recommendation }}</h4>
+                                        <p class="mb-0">
+                                            {% if is_safe %}
+                                            We have analyzed your prescription and the food information, and found no significant concerns.
+                                            {% else %}
+                                            Based on your prescription and health information, we recommend caution with this food.
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 text-md-end">
-                            <a href="/" class="btn btn-outline-primary">
-                                <i class="fas fa-arrow-left me-1"></i> Back to Home
-                            </a>
-                            <button class="btn btn-outline-secondary ms-2" onclick="window.print()">
-                                <i class="fas fa-print me-1"></i> Print Result
-                            </button>
+                        <div class="col-md-4">
+                            <div class="bg-light p-4 rounded-4 h-100">
+                                <h5>Quick Summary</h5>
+                                <div class="mt-3">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Safety Rating:</span>
+                                        <span class="fw-bold">
+                                            {% if is_safe %}
+                                            <span class="text-success">Safe</span>
+                                            {% else %}
+                                            <span class="text-danger">Use Caution</span>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Nutrients:</span>
+                                        <span class="fw-bold">{{ nutrients.calories }} calories</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Serving Size:</span>
+                                        <span class="fw-bold">{{ nutrients.serving_size }}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="alert {% if is_safe %}alert-success{% else %}alert-danger{% endif %} mb-4">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                {% if is_safe %}
-                                <i class="fas fa-check-circle fa-2x me-3"></i>
-                                {% else %}
-                                <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
-                                {% endif %}
-                            </div>
-                            <div>
-                                <h4 class="alert-heading">{{ recommendation }}</h4>
-                                <p class="mb-0">
-                                    {% if is_safe %}
-                                    We have analyzed your prescription and the food information, and found no significant concerns.
-                                    {% else %}
-                                    Based on your prescription and health information, we recommend caution with this food.
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
+                    <!-- Caution Reasons -->
                     {% if not is_safe and explanation %}
                     <div class="mb-4">
                         <h4>Reasons for Caution:</h4>
-                        <ul class="list-group list-group-flush">
-                            {% for reason in explanation %}
-                            <li class="list-group-item bg-dark text-light">
-                                <i class="fas fa-exclamation-circle text-warning me-2"></i> {{ reason }}
-                            </li>
-                            {% endfor %}
-                        </ul>
+                        <div class="bg-light rounded-4 p-3">
+                            <ul class="list-group list-group-flush bg-transparent">
+                                {% for reason in explanation %}
+                                <li class="list-group-item d-flex align-items-center bg-transparent px-2 py-3">
+                                    <i class="fas fa-exclamation-circle text-warning me-3"></i> 
+                                    <span>{{ reason }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                     {% endif %}
 
+                    <!-- Health Info -->
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="card bg-dark mb-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0"><i class="fas fa-pills me-2"></i> Medications Detected</h5>
+                            <div class="card border-0 shadow-sm mb-4">
+                                <div class="card-header bg-light border-0 py-3">
+                                    <h5 class="mb-0"><i class="fas fa-pills me-2 text-primary"></i> Medications Detected</h5>
                                 </div>
                                 <div class="card-body">
                                     {% if restrictions.medications %}
                                     <ul class="list-group list-group-flush">
                                         {% for medication in restrictions.medications %}
-                                        <li class="list-group-item bg-dark text-light">{{ medication|title }}</li>
+                                        <li class="list-group-item d-flex align-items-center bg-transparent">
+                                            <i class="fas fa-capsules text-primary me-2"></i>
+                                            {{ medication|title }}
+                                        </li>
                                         {% endfor %}
                                     </ul>
                                     {% else %}
@@ -85,15 +124,18 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card bg-dark mb-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0"><i class="fas fa-heartbeat me-2"></i> Health Conditions</h5>
+                            <div class="card border-0 shadow-sm mb-4">
+                                <div class="card-header bg-light border-0 py-3">
+                                    <h5 class="mb-0"><i class="fas fa-heartbeat me-2 text-primary"></i> Health Conditions</h5>
                                 </div>
                                 <div class="card-body">
                                     {% if restrictions.conditions %}
                                     <ul class="list-group list-group-flush">
                                         {% for condition in restrictions.conditions %}
-                                        <li class="list-group-item bg-dark text-light">{{ condition|title }}</li>
+                                        <li class="list-group-item d-flex align-items-center bg-transparent">
+                                            <i class="fas fa-file-medical text-primary me-2"></i>
+                                            {{ condition|title }}
+                                        </li>
                                         {% endfor %}
                                     </ul>
                                     {% else %}
@@ -104,16 +146,17 @@
                         </div>
                     </div>
 
-                    <div class="card bg-dark mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0"><i class="fas fa-ban me-2"></i> Dietary Restrictions</h5>
+                    <!-- Dietary Restrictions -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-light border-0 py-3">
+                            <h5 class="mb-0"><i class="fas fa-ban me-2 text-primary"></i> Dietary Restrictions</h5>
                         </div>
                         <div class="card-body">
                             {% if restrictions.restrictions %}
-                            <div class="row">
+                            <div class="row g-2">
                                 {% for restriction in restrictions.restrictions %}
-                                <div class="col-md-4 col-sm-6 mb-2">
-                                    <div class="badge bg-warning text-dark p-2 w-100">{{ restriction }}</div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="px-3 py-2 bg-light rounded-pill text-center">{{ restriction }}</div>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -123,16 +166,16 @@
                         </div>
                     </div>
 
-                    <div class="card bg-dark mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0"><i class="fas fa-chart-pie text-info me-2"></i> Nutritional Information</h5>
+                    <!-- Nutritional Information -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-light border-0 py-3">
+                            <h5 class="mb-0"><i class="fas fa-chart-pie text-primary me-2"></i> Nutritional Information</h5>
                         </div>
                         <div class="card-body">
                             {% if nutrients %}
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <p class="mb-1"><strong>Serving Size:</strong></p>
-                                    <p>{{ nutrients.serving_size }}</p>
+                                    <p class="mb-1"><strong>Serving Size:</strong> {{ nutrients.serving_size }}</p>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="progress mb-3" style="height: 25px;">
@@ -143,36 +186,36 @@
                                 </div>
                             </div>
                             
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3 mb-3">
-                                    <div class="card bg-dark h-100">
+                            <div class="row g-3">
+                                <div class="col-6 col-lg-3">
+                                    <div class="card bg-light border-0 h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Protein</h5>
-                                            <p class="display-6 mb-0">{{ nutrients.protein }}g</p>
+                                            <p class="display-6 mb-0 text-primary">{{ nutrients.protein }}g</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-3 mb-3">
-                                    <div class="card bg-dark h-100">
+                                <div class="col-6 col-lg-3">
+                                    <div class="card bg-light border-0 h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Carbs</h5>
-                                            <p class="display-6 mb-0">{{ nutrients.carbs }}g</p>
+                                            <p class="display-6 mb-0 text-primary">{{ nutrients.carbs }}g</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-3 mb-3">
-                                    <div class="card bg-dark h-100">
+                                <div class="col-6 col-lg-3">
+                                    <div class="card bg-light border-0 h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Fat</h5>
-                                            <p class="display-6 mb-0">{{ nutrients.fat }}g</p>
+                                            <p class="display-6 mb-0 text-primary">{{ nutrients.fat }}g</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-3 mb-3">
-                                    <div class="card bg-dark h-100">
+                                <div class="col-6 col-lg-3">
+                                    <div class="card bg-light border-0 h-100">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Fiber</h5>
-                                            <p class="display-6 mb-0">{{ nutrients.fiber }}g</p>
+                                            <p class="display-6 mb-0 text-primary">{{ nutrients.fiber }}g</p>
                                         </div>
                                     </div>
                                 </div>
@@ -180,9 +223,20 @@
                             
                             <div class="mt-3">
                                 <div class="progress mb-2" style="height: 20px;">
-                                    <div class="progress-bar bg-info" role="progressbar"
-                                        style="width: {{ (nutrients.sugar / 50) * 100 }}%;" aria-valuenow="{{ nutrients.sugar }}"
-                                        aria-valuemin="0" aria-valuemax="50">Sugar: {{ nutrients.sugar }}g</div>
+                                    <div class="progress-bar bg-primary" role="progressbar"
+                                        {% if nutrients.sugar is defined and nutrients.sugar is not none %}
+                                            {% set sugar_value = nutrients.sugar|float %}
+                                            {% if sugar_value > 50 %}
+                                                style="width: 100%;"
+                                            {% else %}
+                                                style="width: {{ (sugar_value / 50) * 100 }}%;"
+                                            {% endif %}
+                                            aria-valuenow="{{ sugar_value }}"
+                                        {% else %}
+                                            style="width: 0%;"
+                                            aria-valuenow="0"
+                                        {% endif %}
+                                        aria-valuemin="0" aria-valuemax="50">Sugar: {% if nutrients.sugar is defined and nutrients.sugar is not none %}{{ nutrients.sugar }}{% else %}0{% endif %}g</div>
                                 </div>
                             </div>
                             {% else %}
@@ -191,75 +245,73 @@
                         </div>
                     </div>
                     
-                    {% if is_safe %}
-                    <div class="card bg-dark mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0"><i class="fas fa-heart text-success me-2"></i> Health Benefits</h5>
-                        </div>
-                        <div class="card-body">
-                            {% if benefits %}
-                            <ul class="list-group list-group-flush">
-                                {% for benefit in benefits %}
-                                <li class="list-group-item bg-dark text-light">
-                                    <i class="fas fa-check-circle text-success me-2"></i> {{ benefit }}
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% else %}
-                            <p class="card-text text-muted">No specific health benefits identified for this food.</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    {% if not is_safe or health_risks %}
-                    <div class="card bg-dark mb-4">
-                        <div class="card-header">
-                            <h5 class="mb-0"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Health Risks</h5>
-                        </div>
-                        <div class="card-body">
-                            {% if health_risks %}
-                            <ul class="list-group list-group-flush">
-                                {% for risk in health_risks %}
-                                <li class="list-group-item bg-dark text-light">
-                                    <i class="fas fa-exclamation-circle text-warning me-2"></i> {{ risk }}
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% else %}
-                            <p class="card-text text-muted">No specific health risks identified for this food.</p>
-                            {% endif %}
-                            
-                            {% if not is_safe %}
-                            <div class="alert alert-warning mt-3">
-                                <h6 class="alert-heading">Important Note</h6>
-                                <p class="mb-0">
-                                    Based on your prescription, this food may not be safe for you to consume. Consider discussing with your doctor 
-                                    or pharmacist before consumption, especially if you are taking multiple medications or have complex health conditions.
-                                </p>
+                    <!-- Health Benefits & Risks -->
+                    <div class="row g-4">
+                        {% if is_safe %}
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-header bg-light border-0 py-3">
+                                    <h5 class="mb-0"><i class="fas fa-heart text-success me-2"></i> Health Benefits</h5>
+                                </div>
+                                <div class="card-body">
+                                    {% if benefits %}
+                                    <ul class="list-group list-group-flush">
+                                        {% for benefit in benefits %}
+                                        <li class="list-group-item d-flex align-items-center bg-transparent">
+                                            <i class="fas fa-check-circle text-success me-2"></i> {{ benefit }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <p class="card-text text-muted">No specific health benefits identified for this food.</p>
+                                    {% endif %}
+                                </div>
                             </div>
-                            {% endif %}
                         </div>
-                    </div>
-                    {% endif %}
+                        {% endif %}
 
-                    <div class="card bg-dark">
-                        <div class="card-header">
-                            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i> Important Information</h5>
+                        {% if not is_safe or health_risks %}
+                        <div class="col-md-{% if is_safe %}6{% else %}12{% endif %}">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-header bg-light border-0 py-3">
+                                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle text-warning me-2"></i> Health Risks</h5>
+                                </div>
+                                <div class="card-body">
+                                    {% if health_risks %}
+                                    <ul class="list-group list-group-flush">
+                                        {% for risk in health_risks %}
+                                        <li class="list-group-item d-flex align-items-center bg-transparent">
+                                            <i class="fas fa-exclamation-circle text-warning me-2"></i> {{ risk }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <p class="card-text text-muted">No specific health risks identified for this food.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="alert alert-info">
-                                <h6 class="alert-heading">This is an automated analysis</h6>
-                                <p class="mb-0">
-                                    While we use advanced technology to analyze food safety, this information should not replace professional 
+                        {% endif %}
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="mt-4 p-3 bg-light rounded-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-info-circle fa-2x me-3 text-primary"></i>
+                            </div>
+                            <div>
+                                <h5>Medical Disclaimer</h5>
+                                <p class="mb-0 text-muted">
+                                    This analysis is for informational purposes only and does not constitute
                                     medical advice. Always consult with your healthcare provider for personalized guidance.
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-center">
-                    <a href="/" class="btn btn-primary">
+                <div class="card-footer bg-white border-0 text-center p-4">
+                    <a href="/" class="btn btn-primary px-4 py-2">
                         <i class="fas fa-search me-1"></i> Check Another Food
                     </a>
                 </div>
