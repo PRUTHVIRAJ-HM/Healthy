@@ -8,7 +8,7 @@
 
 ## Step 1: Go to VS code and open terminal and type 
 
-git clone https: 
+git clone https://github.com/PRUTHVIRAJ-HM/Healthy
 
 ## Step 2: Then type the below command in terminal
 
