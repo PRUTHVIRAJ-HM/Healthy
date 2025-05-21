@@ -1,25 +1,52 @@
-# Process to Setup the Project
+# Healthy Project Setup Guide
 
+Welcome to the Healthy Project! Follow the steps below to set up and run the project on your local machine.
 
-* You need a fulltime internet connection to run this project as it uses realtime Webscraping, Transformers and RAG system.
+---
 
-### If you dont have python installed so firstly you need to install python from python.org then follow the below steps.
+## Prerequisites
 
+- **Python Installation:**  
+  Ensure that Python is installed on your system. If not, download and install the latest version from [python.org](https://www.python.org/downloads/).
+- **Internet Connection:**  
+  A stable internet connection is required as the project utilizes real-time web scraping, Transformers, and a Retrieval-Augmented Generation (RAG) system.
 
-## Step 1: Go to VS code and open terminal and type 
+---
 
+## Setup Instructions
+
+### 1. Clone the Repository
+
+Open your terminal (e.g., in VS Code) and run:
+```bash
 git clone https://github.com/PRUTHVIRAJ-HM/Healthy
+```
 
-## Step 2: Then type the below command in terminal
+### 2. Install Dependencies
 
+Navigate to the project directory and install the required Python packages:
+```bash
 pip install -r requirements.txt
+```
 
-## Step 3: open the terminal and type the below command
+### 3. Run the Application
 
+Start the application by executing:
+```bash
 python main.py
+```
 
-## Step 4: A new website opne in your browser so just use the sample docs given in the folder
+### 4. Access the Web Interface
 
-Sample prescriptions are present in the folder "Test_prescriptions" upload any one file given in here or upoad any of your own.
+After running the application, a new website will automatically open in your browser.
 
-# Please leave star the Repo if it helped, Thnaks
+- Sample prescription documents are located in the `Test_prescriptions` folder.
+- You can upload any of these sample files or your own prescription documents to test the application.
+
+---
+
+## Feedback
+
+If you found this project helpful, please consider starring the repository. Thank you for your support!
+
+---
